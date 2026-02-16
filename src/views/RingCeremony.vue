@@ -1,5 +1,5 @@
 <template>
-  <InvitationCard>
+  <InvitationCard backgroundVideo="/ring.mp4">
     <header class="hero">
       <h1 class="names shimmer">Rahul <span class="heart">❤️</span> Priya</h1>
       <p class="tagline">Together with our families, we invite you to celebrate our union</p>

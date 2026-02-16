@@ -11,7 +11,7 @@
       playsinline
       preload="auto"
     >
-      <source src="/video.mp4" type="video/mp4" />
+      <source :src="props.backgroundVideo" type="video/mp4" />
     </video>
 
     <!-- Cinematic overlay -->
@@ -64,6 +64,13 @@
 
 <script setup>
 import { ref, onMounted } from "vue"
+
+const props = defineProps({
+  backgroundVideo: {
+    type: String,
+    required: true
+  }
+})
 
 const opened = ref(false)
 const envelopeOpening = ref(false)

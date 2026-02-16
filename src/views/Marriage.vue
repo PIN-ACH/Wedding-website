@@ -1,13 +1,13 @@
 <template>
   <InvitationCard>
     <header class="hero">
-      <h1 class="names shimmer">Rahul <span class="heart">❤️</span> Priya</h1>
+      <h1 class="names shimmer">Pinak weds Megha</h1>
       <p class="tagline">Together with our families, we invite you to celebrate our union</p>
 
       <!-- Countdown -->
       <CountdownTimer
         label="Wedding Ceremony"
-        targetISO="2026-12-25T19:00:00+05:30"
+        targetISO="2026-04-21T19:00:00+05:30"
       />
     </header>
 
@@ -18,12 +18,12 @@
 
     <section class="glass">
       <h2 class="shimmer">Date & Time</h2>
-      <p>25 December 2026 • 7:00 PM</p>
+      <p>21 April 2026 • 7:00 PM</p>
     </section>
 
     <section class="glass">
       <h2 class="shimmer">Venue</h2>
-      <p>Royal Palace Banquet, New Delhi</p>
+      <p>Gokul Garden, Dwarka, New Delhi</p>
     </section>
 
     <section class="glass map">

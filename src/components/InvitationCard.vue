@@ -152,9 +152,12 @@ onMounted(() => {
   object-fit: cover;
   z-index: -3;
 
-  transform: scale(1.05);
-  animation: cinematicZoom 6s ease forwards;
+  filter:
+    brightness(1.15)
+    contrast(1.05)
+    saturate(1.1);
 }
+
 
 @keyframes cinematicZoom {
   to {
@@ -202,11 +205,16 @@ onMounted(() => {
 .overlay {
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(70% 60% at 50% 35%, rgba(0,0,0,0.25), rgba(0,0,0,0.78)),
-    linear-gradient(to bottom, rgba(0,0,0,0.70), rgba(0,0,0,0.35));
   z-index: -2;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.25)
+    );
 }
+
 
 /* ====== Music Control ====== */
 .music-control {
@@ -226,11 +234,16 @@ onMounted(() => {
 
 /* ====== Center container ====== */
 .center-container {
-  height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;   /* safe padding */
 }
+
 
 /* ====== Envelope 3D ====== */
 .envelope-scene {
@@ -240,7 +253,8 @@ onMounted(() => {
 }
 
 .envelope {
-  width: 380px;
+  width: min(380px, 90vw);
+  max-width: 380px;
   height: 240px;
   position: relative;
   transform-style: preserve-3d;

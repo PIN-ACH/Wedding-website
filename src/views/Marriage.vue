@@ -1,7 +1,7 @@
 <template>
   <InvitationCard backgroundVideo="/video.mp4">
     <header class="hero">
-      <h1 class="names shimmer">Pinak weds Megha</h1>
+      <h1 class="names shimmer">PINAK WEDS MEGHA</h1>
       <p class="tagline">Together with our families, we invite you to celebrate our union</p>
 
       <!-- Countdown -->
@@ -11,22 +11,22 @@
       />
     </header>
 
-    <section class="glass">
+    <section class="glass" v-reveal>
       <h2 class="shimmer">Dear {{ guestName }},</h2>
       <p class="muted">You are cordially invited to our Wedding Ceremony.</p>
     </section>
 
-    <section class="glass">
+    <section class="glass" v-reveal >
       <h2 class="shimmer">Date & Time</h2>
       <p>21 April 2026 • 7:00 PM</p>
     </section>
 
-    <section class="glass">
+    <section class="glass" v-reveal >
       <h2 class="shimmer">Venue</h2>
       <p>Gokul Garden, Dwarka, New Delhi</p>
     </section>
 
-    <section class="glass map">
+    <section class="glass map" v-reveal>
       <iframe
         title="Venue Map"
         src="https://www.google.com/maps?q=New+Delhi&output=embed"
@@ -35,7 +35,7 @@
       </iframe>
     </section>
 
-    <section class="glass">
+    <section class="glass" v-reveal >
       <h2 class="shimmer">Schedule</h2>
       <ul class="list">
         <li><b>7:00 PM</b> — Baraat & Welcome</li>
@@ -44,12 +44,12 @@
       </ul>
     </section>
 
-    <section class="glass">
+    <section class="glass" v-reveal >
       <h2 class="shimmer">Dress Code</h2>
       <p>Traditional / Formal</p>
     </section>
 
-    <section class="glass">
+    <section class="glass" v-reveal >
       <h2 class="shimmer">RSVP</h2>
       <p class="muted">Please confirm your presence.</p>
       <div class="buttons">
@@ -81,11 +81,34 @@ const guestName = route.params.guestName
   padding-top: 10px;
 }
 
-.names {
-  font-size: 52px;
-  letter-spacing: 1px;
+.names{
+  font-family: var(--font-display);
+  font-size: 56px;
+  letter-spacing: 1.2px;
+  margin: 0 0 10px;
+  text-shadow: 0 18px 55px rgba(0,0,0,0.55);
+  transition: transform 700ms ease, letter-spacing 700ms ease;
+}
+
+.names:hover{
+  transform: translateY(-2px);
+  letter-spacing: 1.6px;
+}
+
+h2{
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.8px;
   margin: 0 0 10px;
 }
+
+p, li{
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
 
 .heart {
   filter: drop-shadow(0 10px 16px rgba(0,0,0,0.35));
@@ -107,6 +130,12 @@ const guestName = route.params.guestName
   border: 1px solid rgba(255,255,255,0.18);
   backdrop-filter: blur(14px);
   box-shadow: 0 28px 60px rgba(0,0,0,0.40);
+  transition: transform 500ms ease, box-shadow 500ms ease, border-color 500ms ease;
+}
+.glass:hover{
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.28);
+  box-shadow: 0 36px 75px rgba(0,0,0,0.55);
 }
 
 .map iframe {
@@ -132,6 +161,20 @@ const guestName = route.params.guestName
   margin-top: 14px;
   flex-wrap: wrap;
 }
+
+.reveal-init{
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(2px);
+}
+
+.reveal-show{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
+}
+
 
 .btn {
   padding: 10px 16px;
@@ -163,7 +206,7 @@ const guestName = route.params.guestName
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer 2.4s linear infinite;
+  animation: shimmer 1.5s linear infinite;
 }
 
 @keyframes shimmer {

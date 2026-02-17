@@ -82,18 +82,26 @@ const guestName = route.params.guestName
 }
 
 .names{
-  font-family: var(--font-display);
-  font-size: 56px;
-  letter-spacing: 1.2px;
-  margin: 0 0 10px;
-  text-shadow: 0 18px 55px rgba(0,0,0,0.55);
-  transition: transform 700ms ease, letter-spacing 700ms ease;
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(42px, 6vw, 72px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+
+  background: linear-gradient(90deg, #d4af37, #f8e7a0, #d4af37);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  animation: shimmer 4s linear infinite;
+
+  transition: all 0.6s ease;
 }
 
 .names:hover{
-  transform: translateY(-2px);
-  letter-spacing: 1.6px;
+  letter-spacing: 4px;
 }
+
 
 h2{
   font-family: var(--font-heading);

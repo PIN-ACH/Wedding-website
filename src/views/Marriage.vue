@@ -1,5 +1,5 @@
 <template>
-  <InvitationCard backgroundVideo="/video.mp4">
+  <InvitationCard backgroundVideo="/video.mp4" backgroundMusic="/music.mp3">
     <header class="hero">
       <div class="title">
         <div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak</div>

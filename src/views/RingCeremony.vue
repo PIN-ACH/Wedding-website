@@ -1,5 +1,5 @@
-<template>
-  <InvitationCard backgroundVideo="/ring.mp4">
+<template> 
+  <InvitationCard backgroundVideo="/ring.mp4" backgroundMusic="/ring.mp3">
     <header class="hero">
       <h1 class="names shimmer">PINAK WEDS MEGHA</h1>
       <p class="tagline">Together with our families, we invite you to celebrate our union</p>

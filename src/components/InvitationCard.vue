@@ -19,7 +19,7 @@
 
     <!-- Background music -->
     <audio ref="music" loop preload="auto">
-      <source src="/music.mp3" type="audio/mp3" />
+      <source :src="backgroundMusic" type="audio/mp3" />
     </audio>
 
     <!-- Music toggle -->
@@ -63,14 +63,29 @@
 </template>
 
 <script setup>
+import { watch } from "vue"
 import { ref, onMounted } from "vue"
 
 const props = defineProps({
   backgroundVideo: {
     type: String,
     required: true
+  },
+  backgroundMusic: {
+    type: String,
+    required: true
   }
 })
+
+watch(() => props.backgroundMusic, async () => {
+  if (!music.value) return
+  music.value.load()
+  try {
+    await music.value.play()
+    isPlaying.value = true
+  } catch {}
+})
+
 
 const opened = ref(false)
 const envelopeOpening = ref(false)

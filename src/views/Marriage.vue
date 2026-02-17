@@ -2,13 +2,13 @@
   <InvitationCard backgroundVideo="/video.mp4">
     <header class="hero">
       <div class="title">
-        <div class="name-line shimmer cinematic" style="--d: 0ms;">PINAK</div>
+        <div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak</div>
     
         <div class="weds-line cinematic" style="--d: 120ms;">
           <span class="weds">weds</span>
         </div>
     
-        <div class="name-line shimmer cinematic" style="--d: 240ms;">MEGHA</div>
+        <div class="name-line shimmer  cinematic" style="--d: 240ms;">Megha</div>
       </div>
     
       <p class="tagline cinematic" style="--d: 360ms;">
@@ -86,6 +86,111 @@ const guestName = route.params.guestName
 </script>
 
 <style scoped>
+.hero{
+  max-width: 1000px;
+  margin: 0 auto 28px;
+  padding-top: 6px;
+}
+
+.title{
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+/* Big name lines */
+.name-line{
+  font-family: "Prata", serif;
+  font-size: clamp(46px, 6.2vw, 84px);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  line-height: 0.95;
+  text-shadow: 0 22px 60px rgba(0,0,0,0.55);
+}
+
+/* Weds separator */
+.weds-line{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.weds{
+  font-family: "Outfit", sans-serif;
+  font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-size: 14px;
+  opacity: 0.9;
+  position: relative;
+}
+
+/* Decorative lines left/right of WEDS */
+.weds::before,
+.weds::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 70px;
+  height: 1px;
+  background: rgba(255,255,255,0.35);
+}
+
+.weds::before{ right: calc(100% + 14px); }
+.weds::after{ left: calc(100% + 14px); }
+
+.tagline{
+  font-family: "Outfit", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  opacity: 0.92;
+  max-width: 760px;
+  margin: 10px auto 0;
+  line-height: 1.7;
+}
+
+/* Shimmer gold (classy, less flashy) */
+/* Fallback text color so it never becomes "empty" */
+/* Always-visible fallback (prevents blank text) */
+/* Base text always visible */
+/* Base text always visible */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #c9a33a 0%,
+    #fff4c4 40%,
+    #c9a33a 80%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+
+
+/* ===== Cinematic Intro Animation =====
+   Delay is controlled by --d inline style.
+*/
+.cinematic{
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(2px);
+  animation: cinematicIn 900ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes cinematicIn{
+  to{
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 .hero {
   max-width: 980px;
   margin: 0 auto 26px;
@@ -168,9 +273,11 @@ p, li{
   list-style: none;
   padding: 0;
   margin: 10px 0 0;
-  display: grid;
-  gap: 10px;
-  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers items horizontally */
+  gap: 12px;
 }
 
 .buttons {
@@ -218,20 +325,6 @@ p, li{
 
 .muted { opacity: 0.85; }
 
-/* shimmer */
-.shimmer {
-  background: linear-gradient(90deg, #b38b2f, #ffeb9c, #b38b2f);
-  background-size: 250% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 1.5s linear infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
 
 @media (max-width: 520px) {
   .names { font-size: 40px; }

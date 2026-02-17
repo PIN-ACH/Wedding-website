@@ -20,7 +20,7 @@ html, body {
 
 body{
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Outfit", sans-serif;
   font-family: var(--font-body);
   letter-spacing: 0.2px;
   text-rendering: optimizeLegibility;

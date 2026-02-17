@@ -1,10 +1,21 @@
 <template>
   <InvitationCard backgroundVideo="/video.mp4">
     <header class="hero">
-      <h1 class="names shimmer">PINAK WEDS MEGHA</h1>
-      <p class="tagline">Together with our families, we invite you to celebrate our union</p>
-
-      <!-- Countdown -->
+      <div class="title">
+        <div class="name-line shimmer cinematic" style="--d: 0ms;">PINAK</div>
+    
+        <div class="weds-line cinematic" style="--d: 120ms;">
+          <span class="weds">weds</span>
+        </div>
+    
+        <div class="name-line shimmer cinematic" style="--d: 240ms;">MEGHA</div>
+      </div>
+    
+      <p class="tagline cinematic" style="--d: 360ms;">
+        Together with our families, we invite you to celebrate our union
+      </p>
+    
+      <!-- Countdown stays as-is -->
       <CountdownTimer
         label="Wedding Ceremony"
         targetISO="2026-04-21T19:00:00+05:30"

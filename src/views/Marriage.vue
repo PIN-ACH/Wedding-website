@@ -7,8 +7,8 @@
         <div class="weds-line cinematic" style="--d: 120ms;">
           <span class="weds">weds</span>
         </div>
-    
-        <div class="name-line shimmer  cinematic" style="--d: 240ms;">Megha</div>
+	<div class="name-line shimmer  cinematic" style="--d: 240ms;">Megha</div>
+        
       </div>
     
       <p class="tagline cinematic" style="--d: 360ms;">
@@ -80,6 +80,7 @@
 import { useRoute } from "vue-router"
 import InvitationCard from "../components/InvitationCard.vue"
 import CountdownTimer from "../components/CountdownTimer.vue"
+import CinematicText from "../components/CinematicText.vue"
 
 const route = useRoute()
 const guestName = route.params.guestName
@@ -115,6 +116,7 @@ const guestName = route.params.guestName
   align-items: center;
   gap: 14px;
 }
+
 
 .weds{
   font-family: "Outfit", sans-serif;
@@ -155,21 +157,35 @@ const guestName = route.params.guestName
 /* Always-visible fallback (prevents blank text) */
 /* Base text always visible */
 /* Base text always visible */
+
+/* fallback visible color */
 .shimmer {
-  background: linear-gradient(
-    90deg,
-    #c9a33a 0%,
-    #fff4c4 40%,
-    #c9a33a 80%
-  );
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: shimmer 1.5s ease-in-out infinite;
+  color: #f3e2a5;
+}
+ 
+/* apply shimmer only when supported */
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .shimmer {
+    background: linear-gradient(90deg, #b38b2f, #ffeb9c, #b38b2f);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent; /* IMPORTANT */
+    animation: shimmer 3s linear infinite;
+  }
+}
+ 
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
 
 
 /* ===== Cinematic Intro Animation =====

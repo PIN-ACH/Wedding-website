@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+  <div class="particles"></div>
 
     <!-- Background Video -->
     <video
@@ -150,7 +151,52 @@ onMounted(() => {
   height: 100%;
   object-fit: cover;
   z-index: -3;
+
+  transform: scale(1.05);
+  animation: cinematicZoom 6s ease forwards;
 }
+
+@keyframes cinematicZoom {
+  to {
+    transform: scale(1);
+  }
+}
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particles::before,
+.particles::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image:
+    radial-gradient(circle, rgba(255,215,0,0.4) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: floatParticles 60s linear infinite;
+  opacity: 0.25;
+}
+
+.particles::after {
+  animation-duration: 90s;
+  opacity: 0.15;
+}
+
+@keyframes floatParticles {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-500px);
+  }
+}
+
+
 
 /* ====== Cinematic Overlay ====== */
 .overlay {

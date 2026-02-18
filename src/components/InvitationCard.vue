@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-  <div class="particles"></div>
 
     <!-- Background Video -->
     <video
@@ -15,47 +14,56 @@
       <source :src="props.backgroundVideo" type="video/mp4" />
     </video>
 
-    <!-- Cinematic overlay -->
+    <!-- Overlay -->
     <div class="overlay"></div>
 
-    <!-- Background music -->
+    <!-- Background Music -->
     <audio ref="music" loop preload="auto">
-      <source :src="backgroundMusic" type="audio/mp3" />
+      <source :src="props.backgroundMusic" type="audio/mp3" />
     </audio>
 
-    <!-- Music toggle -->
-    <button class="music-control" @click="toggleMusic" aria-label="Toggle music">
+    <!-- Music Toggle -->
+    <button class="music-control" @click="toggleMusic">
       {{ isPlaying ? "🔊" : "🔇" }}
     </button>
 
-    <!-- CLOSED: Envelope -->
+    <!-- CLOSED STATE -->
     <div v-if="!opened" class="center-container">
-      <div class="envelope-scene" @click="openEnvelope" role="button" aria-label="Open invitation">
-        <div class="envelope" :class="{ open: envelopeOpening }">
-          <!-- back -->
-          <div class="env-back"></div>
+      <div class="envelope-scene" @click="openEnvelope">
 
-          <!-- letter -->
-          <div class="letter">
-            <div class="letter-inner">
-              <div class="shimmer-title">Wedding Invitation</div>
-              <div class="letter-sub">Tap to open</div>
-              <div class="wax">
-                <span class="wax-dot"></span>
+        <div class="envelope" :class="{ open: envelopeOpening }">
+          <div class="env-shadow"></div>
+
+          <div class="env-body">
+            <div class="env-paper"></div>
+            <div class="gold-edge"></div>
+
+            <!-- Letter (hidden before click) -->
+            <div class="letter">
+              <div class="letter-inner">
+                <div class="card-title shimmer">Wedding Invitation</div>
+                <div class="card-sub">With love & blessings</div>
               </div>
             </div>
+
+            <!-- Flap -->
+            <div class="env-flap"></div>
+
+            <!-- Pocket -->
+            <div class="env-pocket"></div>
+
+            <!-- Tap Hint -->
+            <div class="tap-hint" :class="{ hide: envelopeOpening }">
+              Tap to open
+            </div>
+
           </div>
-
-          <!-- flap -->
-          <div class="env-flap"></div>
-
-          <!-- front -->
-          <div class="env-front"></div>
         </div>
+
       </div>
     </div>
 
-    <!-- OPEN: Content -->
+    <!-- OPEN STATE -->
     <div v-else class="content">
       <slot />
     </div>
@@ -64,29 +72,12 @@
 </template>
 
 <script setup>
-import { watch } from "vue"
-import { ref, onMounted } from "vue"
+import { ref, onMounted, watch } from "vue"
 
 const props = defineProps({
-  backgroundVideo: {
-    type: String,
-    required: true
-  },
-  backgroundMusic: {
-    type: String,
-    required: true
-  }
+  backgroundVideo: { type: String, required: true },
+  backgroundMusic: { type: String, required: true }
 })
-
-watch(() => props.backgroundMusic, async () => {
-  if (!music.value) return
-  music.value.load()
-  try {
-    await music.value.play()
-    isPlaying.value = true
-  } catch {}
-})
-
 
 const opened = ref(false)
 const envelopeOpening = ref(false)
@@ -94,31 +85,39 @@ const envelopeOpening = ref(false)
 const bgVideo = ref(null)
 const music = ref(null)
 const isPlaying = ref(false)
+const userStartedMusic = ref(false)
 
 const openEnvelope = async () => {
-  // play envelope animation first
-  envelopeOpening.value = true
+  if (envelopeOpening.value) return
 
-  // try to start music on user interaction (browser-friendly)
+  // Start music on user tap
   if (music.value && music.value.paused) {
     try {
       await music.value.play()
       isPlaying.value = true
+      userStartedMusic.value = true
     } catch {}
   }
 
-  // reveal content after animation
+  // Slight delay before flap animation
+  setTimeout(() => {
+    envelopeOpening.value = true
+  }, 200)
+
+  // Show page content after animation
   setTimeout(() => {
     opened.value = true
-  }, 1050)
+  }, 1500)
 }
 
 const toggleMusic = async () => {
   if (!music.value) return
+
   if (music.value.paused) {
     try {
       await music.value.play()
       isPlaying.value = true
+      userStartedMusic.value = true
     } catch {}
   } else {
     music.value.pause()
@@ -126,16 +125,31 @@ const toggleMusic = async () => {
   }
 }
 
-onMounted(() => {
-  // force video play attempt
-  if (bgVideo.value) bgVideo.value.play().catch(() => {})
+watch(
+  () => props.backgroundMusic,
+  async () => {
+    if (!music.value) return
+    music.value.load()
 
-  // don't force music autoplay; most browsers block until interaction
+    if (userStartedMusic.value) {
+      try {
+        await music.value.play()
+        isPlaying.value = true
+      } catch {}
+    } else {
+      isPlaying.value = false
+    }
+  }
+)
+
+onMounted(() => {
+  if (bgVideo.value) bgVideo.value.play().catch(() => {})
 })
 </script>
 
 <style scoped>
-/* ====== Base ====== */
+
+/* ===== Base ===== */
 .wrapper {
   position: relative;
   min-height: 100vh;
@@ -143,7 +157,7 @@ onMounted(() => {
   overflow-x: hidden;
 }
 
-/* ====== Background Video ====== */
+/* ===== Background Video ===== */
 .video-bg {
   position: fixed;
   inset: 0;
@@ -151,172 +165,131 @@ onMounted(() => {
   height: 100%;
   object-fit: cover;
   z-index: -3;
-
-  filter:
-    brightness(1.15)
-    contrast(1.05)
-    saturate(1.1);
+  filter: brightness(1.12) contrast(1.05) saturate(1.1);
 }
 
-
-@keyframes cinematicZoom {
-  to {
-    transform: scale(1);
-  }
-}
-.particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.particles::before,
-.particles::after {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background-image:
-    radial-gradient(circle, rgba(255,215,0,0.4) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: floatParticles 60s linear infinite;
-  opacity: 0.25;
-}
-
-.particles::after {
-  animation-duration: 90s;
-  opacity: 0.15;
-}
-
-@keyframes floatParticles {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-500px);
-  }
-}
-
-
-
-/* ====== Cinematic Overlay ====== */
+/* ===== Overlay ===== */
 .overlay {
   position: fixed;
   inset: 0;
   z-index: -2;
-
   background:
-    linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.35),
-      rgba(0, 0, 0, 0.25)
-    );
+    radial-gradient(60% 50% at 50% 30%, rgba(0,0,0,0.15), rgba(0,0,0,0.55)),
+    linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.16));
 }
 
-
-/* ====== Music Control ====== */
+/* ===== Music Button ===== */
 .music-control {
   position: fixed;
   top: 18px;
   right: 18px;
-  z-index: 20;
+  z-index: 50;
   width: 44px;
   height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.22);
-  background: rgba(255, 215, 0, 0.92);
+  background: rgba(255, 215, 0, 0.95);
   color: #1a1a1a;
   cursor: pointer;
   box-shadow: 0 18px 40px rgba(0,0,0,0.45);
 }
 
-/* ====== Center container ====== */
+/* ===== Centering ===== */
 .center-container {
   position: fixed;
   inset: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 20px;   /* safe padding */
+  display: grid;
+  place-items: center;
+  padding: 18px;
 }
 
-
-/* ====== Envelope 3D ====== */
+/* ===== Envelope ===== */
 .envelope-scene {
-  perspective: 1200px;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  perspective: 1500px;
 }
 
 .envelope {
-  width: min(380px, 90vw);
-  max-width: 380px;
-  height: 240px;
+  width: min(420px, 92vw);
+  height: 260px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 1s ease;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.65));
 }
 
-/* subtle float */
-.envelope-scene:hover .envelope {
-  transform: translateY(-4px);
+.env-shadow {
+  position: absolute;
+  inset: -25px -15px -35px -15px;
+  background: radial-gradient(closest-side, rgba(0,0,0,0.6), transparent 70%);
+  filter: blur(20px);
 }
 
-.env-back,
-.env-front,
+.env-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.55);
+}
+
+.env-paper {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,215,0,0.15), transparent 45%),
+    linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.12));
+}
+
+.gold-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,215,0,0.18),
+    inset 0 0 40px rgba(255,215,0,0.05);
+}
+
+/* ===== Flap ===== */
 .env-flap {
   position: absolute;
   inset: 0;
-  border-radius: 18px;
-}
-
-/* back */
-.env-back {
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.20);
-  backdrop-filter: blur(14px);
-}
-
-/* front pocket */
-.env-front {
-  background:
-    linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,255,255,0.08));
-  border: 1px solid rgba(255,255,255,0.18);
-  clip-path: polygon(0 55%, 50% 85%, 100% 55%, 100% 100%, 0 100%);
-  backdrop-filter: blur(14px);
-}
-
-/* flap */
-.env-flap {
-  background:
-    linear-gradient(135deg, rgba(255,215,0,0.28), rgba(255,255,255,0.06));
-  border: 1px solid rgba(255,255,255,0.18);
-  clip-path: polygon(0 0, 100% 0, 50% 65%);
+  border-radius: 24px;
   transform-origin: top center;
   transform: rotateX(0deg);
-  transition: transform 1s ease;
-  backface-visibility: hidden;
+  transition: transform 900ms cubic-bezier(.2,.9,.2,1);
+  background:
+    linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,255,255,0.04));
+  clip-path: polygon(0 0, 100% 0, 50% 64%);
 }
 
-/* letter */
+/* ===== Pocket ===== */
+.env-pocket {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
+  border-radius: 0 0 24px 24px;
+  background: rgba(0,0,0,0.15);
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ===== Letter ===== */
 .letter {
   position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
+  left: 18px;
+  right: 18px;
+  top: 18px;
   height: 200px;
-  border-radius: 14px;
-  background: rgba(10,10,10,0.28);
-  border: 1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(16px);
-  transform: translateY(34px);
-  transition: transform 1s ease;
-  overflow: hidden;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.28), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(0,0,0,0.06));
+  border: 1px solid rgba(255,255,255,0.25);
+  transform: translateY(150px);
+  opacity: 0;
+  transition: transform 900ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease;
 }
 
 .letter-inner {
@@ -325,54 +298,57 @@ onMounted(() => {
   place-items: center;
   padding: 18px;
   text-align: center;
-  gap: 10px;
 }
 
-.letter-sub {
-  opacity: 0.85;
+.card-title {
+  font-size: 32px;
   letter-spacing: 1px;
+}
+
+.card-sub {
   font-size: 14px;
+  opacity: 0.85;
 }
 
-/* wax seal */
-.wax {
-  margin-top: 8px;
-  width: 54px;
-  height: 54px;
+/* ===== Tap Hint ===== */
+.tap-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 35px;
+  transform: translateX(-50%);
+  padding: 10px 18px;
   border-radius: 999px;
-  background: radial-gradient(circle at 30% 30%, rgba(255,0,0,0.75), rgba(120,0,0,0.9));
-  box-shadow: 0 16px 30px rgba(0,0,0,0.45);
-  display: grid;
-  place-items: center;
-}
-.wax-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.65);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: opacity 300ms ease, transform 300ms ease;
 }
 
-/* Opening animation */
+.tap-hint.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* ===== Animation ===== */
 .envelope.open .env-flap {
   transform: rotateX(155deg);
 }
 
 .envelope.open .letter {
-  transform: translateY(-22px);
+  transform: translateY(-25px);
+  opacity: 1;
+  transition-delay: 200ms;
 }
 
-/* ====== Shimmer Gold Text ====== */
-.shimmer-title {
-  font-size: 26px;
-  letter-spacing: 2px;
-  font-weight: 700;
+/* ===== Shimmer ===== */
+.shimmer {
   background: linear-gradient(90deg, #b38b2f, #ffeb9c, #b38b2f);
   background-size: 250% 100%;
   -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 2.4s linear infinite;
-  text-transform: uppercase;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
 }
 
 @keyframes shimmer {
@@ -380,7 +356,7 @@ onMounted(() => {
   100% { background-position: 200% 50%; }
 }
 
-/* ====== Open content ====== */
+/* ===== Open Content ===== */
 .content {
   padding: 70px 18px 90px;
   animation: fadeIn 1.2s ease;
@@ -390,11 +366,6 @@ onMounted(() => {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 420px) {
-  .envelope { width: 330px; height: 220px; }
 }
 </style>
 

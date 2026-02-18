@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-
     <!-- Background Video -->
     <video
       ref="bgVideo"
@@ -23,14 +22,13 @@
     </audio>
 
     <!-- Music Toggle -->
-    <button class="music-control" @click="toggleMusic">
+    <button class="music-control" @click="toggleMusic" aria-label="Toggle music">
       {{ isPlaying ? "🔊" : "🔇" }}
     </button>
 
-    <!-- CLOSED STATE -->
+    <!-- CLOSED -->
     <div v-if="!opened" class="center-container">
-      <div class="envelope-scene" @click="openEnvelope">
-
+      <div class="envelope-scene" @click="openEnvelope" role="button" aria-label="Open invitation">
         <div class="envelope" :class="{ open: envelopeOpening }">
           <div class="env-shadow"></div>
 
@@ -38,11 +36,16 @@
             <div class="env-paper"></div>
             <div class="gold-edge"></div>
 
-            <!-- Letter (hidden before click) -->
-            <div class="letter">
+            <!-- Letter (card) -->
+            <div class="letter" aria-hidden="true">
               <div class="letter-inner">
                 <div class="card-title shimmer">Wedding Invitation</div>
                 <div class="card-sub">With love & blessings</div>
+
+                <div class="wax" aria-hidden="true">
+                  <span class="wax-shine"></span>
+                  <span class="wax-mark">✶</span>
+                </div>
               </div>
             </div>
 
@@ -52,22 +55,19 @@
             <!-- Pocket -->
             <div class="env-pocket"></div>
 
-            <!-- Tap Hint -->
+            <!-- Tap hint (NOT inside pocket, so it won’t get clipped) -->
             <div class="tap-hint" :class="{ hide: envelopeOpening }">
               Tap to open
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- OPEN STATE -->
+    <!-- OPEN -->
     <div v-else class="content">
       <slot />
     </div>
-
   </div>
 </template>
 
@@ -90,6 +90,9 @@ const userStartedMusic = ref(false)
 const openEnvelope = async () => {
   if (envelopeOpening.value) return
 
+  // Hide tap hint instantly
+  envelopeOpening.value = true
+
   // Start music on user tap
   if (music.value && music.value.paused) {
     try {
@@ -99,12 +102,12 @@ const openEnvelope = async () => {
     } catch {}
   }
 
-  // Slight delay before flap animation
+  // Add delay before the flap starts opening (premium feel)
   setTimeout(() => {
-    envelopeOpening.value = true
-  }, 200)
+    document.documentElement.style.setProperty("--open-delay", "1")
+  }, 0)
 
-  // Show page content after animation
+  // Reveal content after full animation
   setTimeout(() => {
     opened.value = true
   }, 1500)
@@ -112,7 +115,6 @@ const openEnvelope = async () => {
 
 const toggleMusic = async () => {
   if (!music.value) return
-
   if (music.value.paused) {
     try {
       await music.value.play()
@@ -148,7 +150,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 /* ===== Base ===== */
 .wrapper {
   position: relative;
@@ -256,10 +257,13 @@ onMounted(() => {
   inset: 0;
   border-radius: 24px;
   transform-origin: top center;
+
+  /* starts closed */
   transform: rotateX(0deg);
+
+  /* delay baked into transition for premium feel */
   transition: transform 900ms cubic-bezier(.2,.9,.2,1);
-  background:
-    linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,255,255,0.04));
+  background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,255,255,0.04));
   clip-path: polygon(0 0, 100% 0, 50% 64%);
 }
 
@@ -275,6 +279,36 @@ onMounted(() => {
   clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
 }
 
+/* ===== Tap Hint (perfectly centered + won’t clip) ===== */
+.tap-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  padding: 10px 18px;
+  border-radius: 999px;
+
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,0.92);
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 14px 35px rgba(0,0,0,0.25);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.tap-hint.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  pointer-events: none;
+}
+
 /* ===== Letter ===== */
 .letter {
   position: absolute;
@@ -287,6 +321,7 @@ onMounted(() => {
     radial-gradient(circle at 30% 25%, rgba(255,255,255,0.28), transparent 55%),
     linear-gradient(180deg, rgba(255,255,255,0.18), rgba(0,0,0,0.06));
   border: 1px solid rgba(255,255,255,0.25);
+
   transform: translateY(150px);
   opacity: 0;
   transition: transform 900ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease;
@@ -298,6 +333,7 @@ onMounted(() => {
   place-items: center;
   padding: 18px;
   text-align: center;
+  gap: 10px;
 }
 
 .card-title {
@@ -310,28 +346,30 @@ onMounted(() => {
   opacity: 0.85;
 }
 
-/* ===== Tap Hint ===== */
-.tap-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 35px;
-  transform: translateX(-50%);
-  padding: 10px 18px;
+/* Wax seal (optional but premium) */
+.wax {
+  margin-top: 6px;
+  width: 58px;
+  height: 58px;
   border-radius: 999px;
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.25);
-  transition: opacity 300ms ease, transform 300ms ease;
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 30%, rgba(255,0,0,0.76), rgba(90,0,0,0.95));
+  box-shadow: 0 18px 36px rgba(0,0,0,0.35);
+}
+.wax-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.22), transparent 45%);
+}
+.wax-mark {
+  font-size: 18px;
+  opacity: 0.9;
 }
 
-.tap-hint.hide {
-  opacity: 0;
-  transform: translateX(-50%) translateY(10px);
-}
-
-/* ===== Animation ===== */
+/* ===== Open animation ===== */
 .envelope.open .env-flap {
   transform: rotateX(155deg);
 }
@@ -339,7 +377,7 @@ onMounted(() => {
 .envelope.open .letter {
   transform: translateY(-25px);
   opacity: 1;
-  transition-delay: 200ms;
+  transition-delay: 180ms;
 }
 
 /* ===== Shimmer ===== */
@@ -356,7 +394,7 @@ onMounted(() => {
   100% { background-position: 200% 50%; }
 }
 
-/* ===== Open Content ===== */
+/* ===== Content ===== */
 .content {
   padding: 70px 18px 90px;
   animation: fadeIn 1.2s ease;

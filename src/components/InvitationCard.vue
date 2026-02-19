@@ -39,7 +39,9 @@
             <!-- Letter (card) -->
             <div class="letter" aria-hidden="true">
               <div class="letter-inner">
-                <div class="card-title shimmer">Wedding Invitation</div>
+		<div class="card-title shimmer">
+                   {{ props.cardTitle }}
+                </div>
                 <div class="card-sub">With love & blessings</div>
 
                 <div class="wax" aria-hidden="true">
@@ -76,8 +78,10 @@ import { ref, onMounted, watch } from "vue"
 
 const props = defineProps({
   backgroundVideo: { type: String, required: true },
-  backgroundMusic: { type: String, required: true }
+  backgroundMusic: { type: String, required: true },
+  cardTitle: { type: String, required: true }   // 👈 ADD THIS
 })
+
 
 const opened = ref(false)
 const envelopeOpening = ref(false)
@@ -92,6 +96,10 @@ const openEnvelope = async () => {
 
   // Hide tap hint instantly
   envelopeOpening.value = true
+    // Soft vibration (mobile supported browsers only)
+  if (navigator.vibrate) {
+    navigator.vibrate(20) // very soft
+  }
 
   // Start music on user tap
   if (music.value && music.value.paused) {
@@ -282,6 +290,7 @@ onMounted(() => {
 /* ===== Tap Hint (perfectly centered + won’t clip) ===== */
 .tap-hint {
   position: absolute;
+  animation: pulseGlow 2.2s ease-in-out infinite;
   left: 50%;
   bottom: 32px;
   transform: translateX(-50%);
@@ -301,6 +310,22 @@ onMounted(() => {
 
   box-shadow: 0 14px 35px rgba(0,0,0,0.25);
   transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.tap-hint {
+  animation: pulseGlow 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(255,215,0,0);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(255,215,0,0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255,215,0,0);
+  }
 }
 
 .tap-hint.hide {

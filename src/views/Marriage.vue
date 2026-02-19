@@ -1,5 +1,9 @@
 <template>
-  <InvitationCard backgroundVideo="/video.mp4" backgroundMusic="/music.mp3">
+  <InvitationCard
+    backgroundVideo="/video.mp4"
+    backgroundMusic="/music.mp3"
+    cardTitle="Wedding Invitation"
+  >
     <header class="hero">
       <div class="title">
         <div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak</div>
@@ -12,7 +16,7 @@
       </div>
     
       <p class="tagline cinematic" style="--d: 360ms;">
-        Together with our families, we invite you to celebrate our union
+      	From friendship to forever, our journey becomes one.
       </p>
     
       <!-- Countdown stays as-is -->
@@ -23,8 +27,21 @@
     </header>
 
     <section class="glass" v-reveal>
-      <h2 class="shimmer">Dear {{ guestName }},</h2>
-      <p class="muted">You are cordially invited to our Wedding Ceremony.</p>
+      <h2 class="shimmer">
+        Dear <span class="guest-name">{{ guestName }}</span>,
+      </h2>
+    <p class="invite-text">
+  With the blessings of our beloved parents, siblings and elders, <br /><br />
+
+  We,<br />
+  <span class="couple-name shimmer">Pinak & Megha</span>,<br /><br />
+
+  humbly invite you to grace our<br />
+  <span class="couple-name shimmer">Wedding Ceremony</span><br /><br />
+
+  and bless us as we embark upon<br />
+  this beautiful journey of togetherness.
+    </p>
     </section>
 
     <section class="glass" v-reveal >
@@ -34,13 +51,20 @@
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Venue</h2>
-      <p>Gokul Garden, Dwarka, New Delhi</p>
+       <div class="venue-name">Gokul Garden</div>
+
+  <div class="venue-address">
+    306-T, Data Ram Marg<br />
+    Gokul Garden Road, Sector 7, Dwarka<br />
+    New Delhi – 110075
+  </div>
+
     </section>
 
     <section class="glass map" v-reveal>
       <iframe
         title="Venue Map"
-        src="https://www.google.com/maps?q=New+Delhi&output=embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.2661176394463!2d77.07124757495524!3d28.592032985919612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b3eaa16e821%3A0x43111afed54e07c3!2sGokul%20Garden!5e1!3m2!1sen!2sie!4v1771510417327!5m2!1sen!2sie"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -57,21 +81,23 @@
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Dress Code</h2>
-      <p>Traditional / Formal</p>
+      <p>Traditional or Formal<br />
+Dress to celebrate; your presence is what truly matters.</p>
     </section>
 
     <section class="glass" v-reveal >
-      <h2 class="shimmer">RSVP</h2>
-      <p class="muted">Please confirm your presence.</p>
+      <h2 class="shimmer">With Love & Respect</h2>
+      <p class="muted">If you need any assistance related to the wedding celebrations,<br/>
+      please do not hesitate to ask us.</p>
       <div class="buttons">
-        <a class="btn" href="tel:+911234567890">Call</a>
-        <a class="btn btn-outline" href="https://wa.me/911234567890" target="_blank" rel="noreferrer">WhatsApp</a>
+        <a class="btn" href="tel:+917048994913">Call</a>
+        <a class="btn btn-outline" href="https://wa.me/917048994913" target="_blank" rel="noreferrer">WhatsApp</a>
       </div>
-      <p class="note">Contact: +91 12345 67890 • +91 98765 43210</p>
+      <p class="note">Contact: +91 7048994913</p>
     </section>
 
     <footer class="footer muted">
-      We can’t wait to celebrate with you ✨
+      With love, gratitude, and joy. We look forward to celebrating with you. ✨
     </footer>
   </InvitationCard>
 </template>
@@ -100,6 +126,26 @@ const guestName = route.params.guestName
   margin-bottom: 10px;
 }
 
+.invite-text {
+  font-size: 18px;
+  line-height: 1.9;
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.couple-name {
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.highlight {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+
 /* Big name lines */
 .name-line{
   font-family: "Prata", serif;
@@ -110,11 +156,51 @@ const guestName = route.params.guestName
   text-shadow: 0 22px 60px rgba(0,0,0,0.55);
 }
 
+.venue-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.venue-address {
+  font-size: 16px;
+  line-height: 1.8;
+  opacity: 0.9;
+  margin-bottom: 14px;
+}
+
+.map-link {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+
+  background: rgba(255, 215, 0, 0.9);
+  color: #1a1a1a;
+  font-weight: 600;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+
 /* Weds separator */
 .weds-line{
   display: flex;
   align-items: center;
   gap: 14px;
+}
+
+.guest-name {
+  font-weight: 700;
+  font-size: 1.5em;
 }
 
 
@@ -123,7 +209,7 @@ const guestName = route.params.guestName
   font-weight: 400;
   letter-spacing: 6px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 25px;
   opacity: 0.9;
   position: relative;
 }
@@ -268,7 +354,7 @@ p, li{
   border-radius: 18px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(3px);
   box-shadow: 0 28px 60px rgba(0,0,0,0.40);
   transition: transform 500ms ease, box-shadow 500ms ease, border-color 500ms ease;
 }

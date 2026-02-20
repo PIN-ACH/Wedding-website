@@ -218,10 +218,15 @@ onMounted(() => {
 }
 
 .envelope {
-  width: min(420px, 92vw);
-  height: 260px;
+  width: min(380px, 90vw);
+  max-width: 380px;
+  height: 240px;
   position: relative;
   transform-style: preserve-3d;
+  transition: transform 1s ease;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.65));
+
+  overflow: visible; /* IMPORTANT */
 }
 
 .env-shadow {
@@ -235,7 +240,7 @@ onMounted(() => {
   position: absolute;
   inset: 0;
   border-radius: 24px;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.22);
   backdrop-filter: blur(18px);
@@ -264,6 +269,7 @@ onMounted(() => {
   position: absolute;
   inset: 0;
   border-radius: 24px;
+  z-index: 7;
   transform-origin: top center;
 
   /* starts closed */
@@ -280,6 +286,7 @@ onMounted(() => {
   position: absolute;
   left: 0;
   right: 0;
+  z-index: 3;
   bottom: 0;
   height: 55%;
   border-radius: 0 0 24px 24px;
@@ -290,6 +297,7 @@ onMounted(() => {
 /* ===== Tap Hint (perfectly centered + won’t clip) ===== */
 .tap-hint {
   position: absolute;
+  z-index: 8;
   animation: pulseGlow 2.2s ease-in-out infinite;
   left: 50%;
   bottom: 32px;
@@ -341,6 +349,7 @@ onMounted(() => {
   right: 18px;
   top: 18px;
   height: 200px;
+  z-index: 6;
   border-radius: 18px;
   background:
     radial-gradient(circle at 30% 25%, rgba(255,255,255,0.28), transparent 55%),
@@ -400,7 +409,7 @@ onMounted(() => {
 }
 
 .envelope.open .letter {
-  transform: translateY(-25px);
+  transform: translateY(-90px);
   opacity: 1;
   transition-delay: 180ms;
 }

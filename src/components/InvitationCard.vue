@@ -39,7 +39,7 @@
             <!-- Letter (card) -->
             <div class="letter" aria-hidden="true">
               <div class="letter-inner">
-		<div class="card-title shimmer">
+		<div class="card-title shimmer" card-title shimmer>
                    {{ props.cardTitle }}
                 </div>
                 <div class="card-sub">With love & blessings</div>

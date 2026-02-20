@@ -6,12 +6,12 @@
   >
     <header class="hero">
       <div class="title">
-        <div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak</div>
+        <div class="name-line shimmer  cinematic" style="--d: 0ms;" :data-text="'PINAK'">Pinak</div>
     
         <div class="weds-line cinematic" style="--d: 120ms;">
           <span class="weds">weds</span>
         </div>
-	<div class="name-line shimmer  cinematic" style="--d: 240ms;">Megha</div>
+	<div class="name-line shimmer  cinematic" style="--d: 240ms;" :data-text="'MEGHA'">Megha</div>
         
       </div>
     
@@ -244,7 +244,7 @@ const guestName = route.params.guestName
 /* Base text always visible */
 /* Base text always visible */
 
-/* fallback visible color */
+/* Always-visible fallback */
 .shimmer {
   color: #f3e2a5;
 }
@@ -266,13 +266,6 @@ const guestName = route.params.guestName
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
 }
-
-
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
 
 /* ===== Cinematic Intro Animation =====
    Delay is controlled by --d inline style.

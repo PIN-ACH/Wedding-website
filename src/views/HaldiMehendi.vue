@@ -6,7 +6,7 @@
     <header class="hero">
       <div class="title">
 	<div class="weds-line cinematic" style="--d: 120ms;">
-          <span class="weds">Engagement</span>
+          <span class="weds">Haldi & Mehendi</span>
         </div>
         <div class="name-line shimmer  cinematic" style="--d: 240ms;">Megha</div>
 

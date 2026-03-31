@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Marriage from '../views/Marriage.vue'
 import RingCeremony from '../views/RingCeremony.vue'
+import HaldiMehendi from "../views/HaldiMehendi.vue"
+
 
 const routes = [
   {
@@ -12,6 +14,11 @@ const routes = [
     path: '/ring_ceremony/:guestName',
     name: 'RingCeremony',
     component: RingCeremony
+  },
+  {
+    path: "/haldi_mehendi/:guestName",
+    name: "HaldiMehendi",
+    component: HaldiMehendi
   }
 ]
 

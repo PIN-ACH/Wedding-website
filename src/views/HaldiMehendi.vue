@@ -1,6 +1,6 @@
 <template>
   <InvitationCard
-    backgroundVideo="/ring.mp4"
+    backgroundVideo="/Haldi.mp4"
     backgroundMusic="/ring.mp3"
     cardTitle="Ring Ceremony">
     <header class="hero">
@@ -8,19 +8,17 @@
 	<div class="weds-line cinematic" style="--d: 120ms;">
           <span class="weds">Haldi & Mehendi</span>
         </div>
-        <div class="name-line shimmer  cinematic" style="--d: 240ms;">Megha</div>
-
         <div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak</div>
       </div>
     
       <p class="tagline cinematic" style="--d: 360ms;">
-          Two rings, one promise, a lifetime to cherish.
+          A splash of turmeric, a swirl of henna, and a celebration of love.
       </p>
     
       <!-- Countdown stays as-is -->
       <CountdownTimer
-        label="Wedding Ceremony"
-        targetISO="2026-04-11T19:00:00+05:30"
+        label="Haldi & Mehendi Ceremony"
+        targetISO="2026-04-20T15:00:00+05:30"
       />
     </header>
 
@@ -31,38 +29,37 @@
       <p class="invite-text">
   With the blessings of our beloved parents and elders,<br /><br />
 
-  we warmly invite you to our<br />
-  <span class="highlight shimmer">Engagement Ceremony</span><br /><br />
+  we joyfully invite you to celebrate <br />
+  <span class="highlight shimmer">Haldi & Mehendi Ceremony</span><br /><br />
 
-  as we exchange rings and mark<br />
-  the beginning of our forever.<br /><br />
+  filled with colors, laughter, music,<br/>
+  and the warmth of togetherness.<br /><br/>
 
   Your presence and blessings<br />
-  will make this moment truly special.
+  will make this celebration even more special.
 </p>
 
     </section>
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Date & Time</h2>
-      <p>11 April 2026 • 7:00 PM</p>
+      <p>20 April 2026 • 3:00 PM</p>
     </section>
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Venue</h2>
-        <div class="venue-name">Mapple Gold Banquet</div>
+        <div class="venue-name">Bricks and Barrel Villa </div>
 
   <div class="venue-address">
-    Located in: Radisson Blu Hotel, New Delhi Paschim Vihar<br/>
-    D Mall, Sunder Vihar, Paschim Vihar<br />
-    NEW DELHI, Delhi, 110087
+    Located in: Dwarka Expressway sector 109<br/>
+    Gurugram, Haryana
   </div>
     </section>
 
     <section class="glass map" v-reveal>
       <iframe
         title="Venue Map"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3167.995175284843!2d77.08900687495807!3d28.66724448250443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d05a83df50807%3A0x7aae924d0fe819dc!2sMapple%20Gold%20Banquet!5e1!3m2!1sen!2sie!4v1771513043740!5m2!1sen!2sie"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.735660313874!2d77.01053147495222!3d28.51003788963382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19ffa6fdbadd%3A0x1322493291551ee8!2sGurgaon%20Kalibari!5e1!3m2!1sen!2sin!4v1774952889076!5m2!1sen!2sin"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -71,17 +68,19 @@
     <section class="glass" v-reveal >
       <h2 class="shimmer">Schedule</h2>
       <ul class="list">
-        <li><b>6:30 PM</b> — Teeka Ceremony</li>
-        <li><b>7:30 PM</b> — Ring Ceremony and Celebrations</li>
+        <li><b>2:00 PM</b> — Haldi Ceremony</li>
+	<li><b>3:00 PM</b> — Lunch</li>
+        <li><b>7:00 PM</b> — Mehendi Ceremony and DJ Night</li>
         <li><b>8:00 PM</b> — Dinner</li>
-        <li><b>9:00 PM</b> — Godh Bharai Ceremony </li>
       </ul>
     </section>
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Dress Code</h2>
-      <p>Formal, Traditional, or Indo-Western Attire.<br/>
-Come dressed in your festive best. Let’s match the sparkle of the rings! 💍✨</p>
+      <p>
+      For Haldi, embrace the joy of yellow hues 🌼<br/>
+  For Mehendi, feel free to wear any vibrant festive colors 🌿✨<br/><br/>
+  Let’s fill the celebration with color, tradition, and happiness!</p>
     </section>
 
     <section class="glass" v-reveal >
@@ -97,7 +96,7 @@ We’ll be busy exchanging rings, but we’ll still try to answer! 💍📞</p>
     </section>
 
     <footer class="footer muted">
-      Your presence will make our special day even more meaningful. ✨
+      Join us as we celebrate love, laughter, and new beginnings. 💛✨
     </footer>
   </InvitationCard>
 </template>
@@ -216,36 +215,27 @@ const guestName = route.params.guestName
 /* Base text always visible */
 /* Base text always visible */
 
-/* fallback visible color */
 .shimmer {
-  color: #f3e2a5;
+  color: #fff700;
+  background: linear-gradient(90deg, #fff700, #aaff00, #fff700, #ffe000, #fff700);
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 6px rgba(220,255,0,1)) drop-shadow(0 0 18px rgba(160,255,0,0.7));
+  animation: neonWave 4s ease-in-out infinite;
 }
- 
-/* apply shimmer only when supported */
-@supports (-webkit-background-clip: text) or (background-clip: text) {
-  .shimmer {
-    background: linear-gradient(90deg, #b38b2f, #ffeb9c, #b38b2f);
-    background-size: 250% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent; /* IMPORTANT */
-    animation: shimmer 3s linear infinite;
+
+@keyframes neonWave {
+  0%,100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 6px rgba(220,255,0,1)) drop-shadow(0 0 18px rgba(160,255,0,0.7));
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 12px rgba(220,255,0,1)) drop-shadow(0 0 35px rgba(160,255,0,0.9));
   }
 }
- 
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-
 /* ===== Cinematic Intro Animation =====
    Delay is controlled by --d inline style.
 */

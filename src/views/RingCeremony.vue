@@ -1,7 +1,7 @@
 <template>
   <InvitationCard
     backgroundVideo="/ring.mp4"
-    backgroundMusic="/ring.mp3"
+    backgroundMusic="/ring-1.mp3"
     cardTitle="Ring Ceremony">
     <header class="hero">
       <div class="title">
@@ -29,10 +29,10 @@
 	  Dear <span class="guest-name">{{ guestName }}</span>,
       </h2>
       <p class="invite-text">
-  With the blessings of our beloved parents and elders,<br /><br />
+  With the blessings of our beloved parents and elders,<br />
 
   we warmly invite you to our<br />
-  <span class="highlight shimmer">Engagement Ceremony</span><br /><br />
+  <span class="highlight shimmer">Engagement Ceremony</span><br />
 
   as we exchange rings and mark<br />
   the beginning of our forever.<br /><br />
@@ -45,7 +45,7 @@
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Date & Time</h2>
-      <p>11 April 2026 • 7:00 PM</p>
+      <p>11 April 2026 • 6:30 PM</p>
     </section>
 
     <section class="glass" v-reveal >
@@ -53,7 +53,8 @@
         <div class="venue-name">Mapple Gold Banquet</div>
 
   <div class="venue-address">
-    Located in: Radisson Blu Hotel, New Delhi Paschim Vihar<br/>
+    Sparkle Hall (Hall number - 2)<br \>
+    Located in: Radisson Blu Hotel, New Delhi Paschim Vihar<br />
     D Mall, Sunder Vihar, Paschim Vihar<br />
     NEW DELHI, Delhi, 110087
   </div>
@@ -174,7 +175,7 @@ const guestName = route.params.guestName
 .weds::before{ right: calc(100% + 14px); }
 .weds::after{ left: calc(100% + 14px); }
 .venue-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 8px;

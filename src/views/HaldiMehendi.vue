@@ -2,13 +2,13 @@
   <InvitationCard
     backgroundVideo="/Haldi.mp4"
     backgroundMusic="/ring.mp3"
-    cardTitle="Ring Ceremony">
+    cardTitle="Haldi & Mehandi">
     <header class="hero">
       <div class="title">
+	<div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak's</div>
 	<div class="weds-line cinematic" style="--d: 120ms;">
-          <span class="weds">Haldi & Mehendi</span>
+          <span class="weds">Haldi & Mehandi</span>
         </div>
-        <div class="name-line shimmer  cinematic" style="--d: 0ms;">Pinak</div>
       </div>
     
       <p class="tagline cinematic" style="--d: 360ms;">
@@ -17,7 +17,7 @@
     
       <!-- Countdown stays as-is -->
       <CountdownTimer
-        label="Haldi & Mehendi Ceremony"
+        label="Haldi & Mehandi Ceremony"
         targetISO="2026-04-20T15:00:00+05:30"
       />
     </header>
@@ -27,10 +27,10 @@
 	  Dear <span class="guest-name">{{ guestName }}</span>,
       </h2>
       <p class="invite-text">
-  With the blessings of our beloved parents and elders,<br /><br />
+      With the blessings of our beloved parents and elders,<br />
 
   we joyfully invite you to celebrate <br />
-  <span class="highlight shimmer">Haldi & Mehendi Ceremony</span><br /><br />
+  <span class="highlight shimmer">Haldi & Mehandi Ceremony</span><br />
 
   filled with colors, laughter, music,<br/>
   and the warmth of togetherness.<br /><br/>
@@ -43,7 +43,7 @@
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">Date & Time</h2>
-      <p>20 April 2026 • 3:00 PM</p>
+      <p>20 April 2026 • 2:00 PM</p>
     </section>
 
     <section class="glass" v-reveal >
@@ -51,8 +51,8 @@
         <div class="venue-name">Bricks and Barrel Villa </div>
 
   <div class="venue-address">
-    Located in: Dwarka Expressway sector 109<br/>
-    Gurugram, Haryana
+    Located in: T-04, Sector-109. Near Kali Badi Mandir<br/>
+    Dwarka Expressway, Gurugram, Haryana
   </div>
     </section>
 
@@ -70,7 +70,7 @@
       <ul class="list">
         <li><b>2:00 PM</b> — Haldi Ceremony</li>
 	<li><b>3:00 PM</b> — Lunch</li>
-        <li><b>7:00 PM</b> — Mehendi Ceremony and DJ Night</li>
+        <li><b>6:00 PM</b> — Mehandi Ceremony and DJ Night</li>
         <li><b>8:00 PM</b> — Dinner</li>
       </ul>
     </section>
@@ -79,15 +79,14 @@
       <h2 class="shimmer">Dress Code</h2>
       <p>
       For Haldi, embrace the joy of yellow hues 🌼<br/>
-  For Mehendi, feel free to wear any vibrant festive colors 🌿✨<br/><br/>
+  For Mehandi, feel free to wear any vibrant festive colors 🌿✨<br/><br/>
   Let’s fill the celebration with color, tradition, and happiness!</p>
     </section>
 
     <section class="glass" v-reveal >
       <h2 class="shimmer">With Love & Respect,</h2>
       <p class="muted">Should you require any assistance regarding the ceremony,<br/>
-please feel free to connect with us.<br/>
-We’ll be busy exchanging rings, but we’ll still try to answer! 💍📞</p>
+please feel free to connect with us.<br/></p>
       <div class="buttons">
         <a class="btn" href="tel:+917048994913">Call</a>
         <a class="btn btn-outline" href="https://wa.me/917048994913" target="_blank" rel="noreferrer">WhatsApp</a>
@@ -173,7 +172,7 @@ const guestName = route.params.guestName
 .weds::before{ right: calc(100% + 14px); }
 .weds::after{ left: calc(100% + 14px); }
 .venue-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 8px;

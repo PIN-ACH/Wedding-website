@@ -31,13 +31,13 @@
         Dear <span class="guest-name">{{ guestName }}</span>,
       </h2>
     <p class="invite-text">
-  With the blessings of our beloved parents, siblings and elders, <br /><br />
+  With the blessings of our beloved parents, siblings and elders, <br />
 
   We,<br />
-  <span class="couple-name shimmer">Pinak & Megha</span>,<br /><br />
+  <span class="couple-name shimmer">Pinak & Megha</span>,<br />
 
   humbly invite you to grace our<br />
-  <span class="couple-name shimmer">Wedding Ceremony</span><br /><br />
+  <span class="couple-name shimmer">Wedding Ceremony</span><br />
 
   and bless us as we embark upon<br />
   this beautiful journey of togetherness.
@@ -73,9 +73,10 @@
     <section class="glass" v-reveal >
       <h2 class="shimmer">Schedule</h2>
       <ul class="list">
-        <li><b>7:00 PM</b> — Baraat & Welcome</li>
+	<li><b>5:00 PM</b> — Ghudchadi (From Bricks and Barrel Villa)</li>
+	<li><b>7:00 PM</b> — Assembling of Baraat</li>
         <li><b>8:00 PM</b> — Wedding Rituals</li>
-        <li><b>9:30 PM</b> — Dinner & Celebration</li>
+	<li><b>9:00 PM</b> — Dinner</li>
       </ul>
     </section>
 
@@ -157,7 +158,7 @@ const guestName = route.params.guestName
 }
 
 .venue-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 8px;

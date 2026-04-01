@@ -74,7 +74,32 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue"
+import { ref, onMounted, watch,onUnmounted } from "vue"
+
+const handleVisibilityChange = async () => {
+  if (document.hidden) {
+    if (music.value && !music.value.paused) {
+      music.value.pause()
+      isPlaying.value = false
+    }
+  } else {
+    if (music.value && userStartedMusic.value) {
+      try {
+        await music.value.play()
+        isPlaying.value = true
+      } catch {}
+    }
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("visibilitychange", handleVisibilityChange)
+})
+
+onUnmounted(() => {
+  document.removeEventListener("visibilitychange", handleVisibilityChange)
+})
+
 
 const props = defineProps({
   backgroundVideo: { type: String, required: true },
